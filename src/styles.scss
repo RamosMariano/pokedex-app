@@ -1,1 +1,146 @@
-/* You can add global styles to this file, and also import other style files */
+$primary:   #e63946;   // rojo pokédex
+$secondary: #457b9d;   // azul medio
+$dark:      #1d3557;   // azul oscuro
+$light:     #f1faee;   // blanco hueso
+$success:   #2a9d8f;
+$warning:   #e9c46a;
+$danger:    #e76f51;
+
+$font-family-base: 'Segoe UI', sans-serif;
+$font-size-base:   1rem;
+$headings-font-weight: 700;
+
+$border-radius:    0.5rem;
+$border-radius-lg: 1rem;
+$spacer: 1rem;
+@import '../node_modules/bootstrap/scss/bootstrap';
+@import '../node_modules/animate.css/animate.min.css';
+
+
+
+body {
+  background-color: $light;
+  color: $dark;
+}
+
+.navbar-custom {
+  background-color: $primary;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+  .navbar-brand,
+  .nav-link {
+    color: $light !important;
+    font-weight: 600;
+  }
+
+  .nav-link:hover {
+    color: $warning !important;
+  }
+}
+
+.pokemon-card {
+  border: none;
+  border-radius: $border-radius-lg;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+  }
+
+  .card-title {
+    text-transform: capitalize;
+    font-weight: 700;
+    color: $dark;
+  }
+}
+
+.type-badge {
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: white;
+
+  &.fire     { background-color: #f4a261; }
+  &.water    { background-color: #457b9d; }
+  &.grass    { background-color: #2a9d8f; }
+  &.electric { background-color: #e9c46a; color: $dark; }
+  &.psychic  { background-color: #e63946; }
+  &.ice      { background-color: #a8dadc; color: $dark; }
+  &.dragon   { background-color: #1d3557; }
+  &.dark     { background-color: #333;    }
+  &.fairy    { background-color: #f4bfd6; color: $dark; }
+  &.normal   { background-color: #aaa;    }
+  &.fighting { background-color: #c77dff; }
+  &.flying   { background-color: #90e0ef; color: $dark; }
+  &.poison   { background-color: #7b2d8b; }
+  &.ground   { background-color: #d4a373; }
+  &.rock     { background-color: #6c584c; }
+  &.bug      { background-color: #a7c957; color: $dark; }
+  &.ghost    { background-color: #4a4e69; }
+  &.steel    { background-color: #8d99ae; }
+}
+
+.stat-bar {
+  height: 10px;
+  border-radius: 999px;
+  background-color: #e0e0e0;
+  overflow: hidden;
+
+  .stat-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(to right, $primary, $secondary);
+    transition: width 0.8s ease;
+  }
+}
+
+.btn-favorite {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.3);
+  }
+
+  &.active {
+    color: $warning;
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: lighten($dark, 30%);
+
+  img {
+    width: 150px;
+    opacity: 0.5;
+    margin-bottom: 1rem;
+  }
+}
+
+.animate-card {
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+}
