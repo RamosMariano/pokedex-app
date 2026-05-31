@@ -1,3 +1,6 @@
+@use '../node_modules/bootstrap/scss/bootstrap';
+@import '../node_modules/animate.css/animate.min.css';
+
 $primary:   #e63946;   // rojo pokédex
 $secondary: #457b9d;   // azul medio
 $dark:      #1d3557;   // azul oscuro
@@ -13,8 +16,6 @@ $headings-font-weight: 700;
 $border-radius:    0.5rem;
 $border-radius-lg: 1rem;
 $spacer: 1rem;
-@import '../node_modules/bootstrap/scss/bootstrap';
-@import '../node_modules/animate.css/animate.min.css';
 
 
 
