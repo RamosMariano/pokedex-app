@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #c22e02;">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/home">PokeApp</a>
+
+    <a class="navbar-brand" [routerLink]="selectorRuta()">PokeApp</a>
 
     <div class="collapse navbar-collapse" id="navbarNav">
       
@@ -10,18 +11,27 @@
         {
             <ul class="navbar-nav ms-4">
 
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/pokedex" >Pokedex</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/pokedex*temporal*" >Pokedex</a>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/favoritos">Favoritos</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/favorites">Favoritos</a>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/equipo">Equipo</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/myteam">Equipo</a>
+                </li>
             </ul>
+    
+            <div class="ms-auto" style="margin-right: 50px;">
+                
+                <a [routerLink]="'/profile'">
+
+                    <!-- pendiente busqueda de imagen de perfil en localstorage si se puede-->
+                    <img [src]="profileImg" (error)="stockImg()" class="rounded-circle"  width="40"  height="40" />
+                </a>
+                </div>
         }
 
       </div>
