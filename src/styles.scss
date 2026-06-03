@@ -1,47 +1,45 @@
-@use '../node_modules/bootstrap/scss/bootstrap';
-@import '../node_modules/animate.css/animate.min.css';
+@use '../node_modules/animate.css/animate.min.css';
 
-$primary:   #e63946;   // rojo pokédex
-$secondary: #457b9d;   // azul medio
-$dark:      #1d3557;   // azul oscuro
-$light:     #f1faee;   // blanco hueso
-$success:   #2a9d8f;
-$warning:   #e9c46a;
-$danger:    #e76f51;
-
-$font-family-base: 'Segoe UI', sans-serif;
-$font-size-base:   1rem;
-$headings-font-weight: 700;
-
-$border-radius:    0.5rem;
-$border-radius-lg: 1rem;
-$spacer: 1rem;
-
-
+@use 'bootstrap/scss/bootstrap' with (
+  $primary:   #e63946,
+  $secondary: #457b9d,
+  $dark:      #1d3557,
+  $light:     #f1faee,
+  $success:   #2a9d8f,
+  $warning:   #e9c46a,
+  $danger:    #e76f51,
+  $font-family-base: 'Segoe UI' #{','} sans-serif,
+  $font-size-base:   1rem,
+  $headings-font-weight: 700,
+  $border-radius:    0.5rem,
+  $border-radius-lg: 1rem,
+  $spacer: 1rem,
+  $enable-shadows: true
+);
 
 body {
-  background-color: $light;
-  color: $dark;
+  background-color: #f1faee;
+  color: #1d3557;
 }
 
 .navbar-custom {
-  background-color: $primary;
+  background-color: #e63946;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 
   .navbar-brand,
   .nav-link {
-    color: $light !important;
+    color: #f1faee !important;
     font-weight: 600;
   }
 
   .nav-link:hover {
-    color: $warning !important;
+    color: #e9c46a !important;
   }
 }
 
 .pokemon-card {
   border: none;
-  border-radius: $border-radius-lg;
+  border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
@@ -60,7 +58,7 @@ body {
   .card-title {
     text-transform: capitalize;
     font-weight: 700;
-    color: $dark;
+    color: #1d3557;
   }
 }
 
@@ -75,19 +73,19 @@ body {
   &.fire     { background-color: #f4a261; }
   &.water    { background-color: #457b9d; }
   &.grass    { background-color: #2a9d8f; }
-  &.electric { background-color: #e9c46a; color: $dark; }
+  &.electric { background-color: #e9c46a; color: #1d3557; }
   &.psychic  { background-color: #e63946; }
-  &.ice      { background-color: #a8dadc; color: $dark; }
+  &.ice      { background-color: #a8dadc; color: #1d3557; }
   &.dragon   { background-color: #1d3557; }
   &.dark     { background-color: #333;    }
-  &.fairy    { background-color: #f4bfd6; color: $dark; }
+  &.fairy    { background-color: #f4bfd6; color: #1d3557; }
   &.normal   { background-color: #aaa;    }
   &.fighting { background-color: #c77dff; }
-  &.flying   { background-color: #90e0ef; color: $dark; }
+  &.flying   { background-color: #90e0ef; color: #1d3557; }
   &.poison   { background-color: #7b2d8b; }
   &.ground   { background-color: #d4a373; }
   &.rock     { background-color: #6c584c; }
-  &.bug      { background-color: #a7c957; color: $dark; }
+  &.bug      { background-color: #a7c957; color: #1d3557; }
   &.ghost    { background-color: #4a4e69; }
   &.steel    { background-color: #8d99ae; }
 }
@@ -101,7 +99,7 @@ body {
   .stat-fill {
     height: 100%;
     border-radius: 999px;
-    background: linear-gradient(to right, $primary, $secondary);
+    background: linear-gradient(to right, #e63946, #457b9d);
     transition: width 0.8s ease;
   }
 }
@@ -118,7 +116,7 @@ body {
   }
 
   &.active {
-    color: $warning;
+    color: #e9c46a;
   }
 }
 
@@ -132,7 +130,7 @@ body {
 .empty-state {
   text-align: center;
   padding: 3rem;
-  color: lighten($dark, 30%);
+  color: #6c757d;
 
   img {
     width: 150px;
