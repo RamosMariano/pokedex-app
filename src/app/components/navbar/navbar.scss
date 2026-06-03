@@ -1,8 +1,9 @@
 @font-face {
-  font-family: 'PokemonHollow';
-  src: url('/assets/fonts/Pokemon-Hollow.ttf') format('truetype');
+  font-family: 'PokemonSolid';
+  src: url('/assets/fonts/PokemonSolid.ttf') format('truetype');
 }
 
 .navbar-brand {
-  font-family: 'PokemonHollow', sans-serif;
+  font-family: 'PokemonSolid', sans-serif;
+  color: #fcfcfc !important;
 }
