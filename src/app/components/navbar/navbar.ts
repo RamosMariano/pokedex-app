@@ -9,4 +9,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss'
 })
-export class NavbarComponent {}
+export class NavbarComponent 
+{
+  logueado = false; //para evitar mostrar otros links si no hay sesion
+}
