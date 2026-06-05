@@ -9,6 +9,7 @@ import { PokemonService } from '../../services/pokemon.service';
   templateUrl: './detail.html',
   styleUrl: './detail.scss'
 })
+
 export class DetailComponent {
 
   constructor(private pokemonService: PokemonService) {}
