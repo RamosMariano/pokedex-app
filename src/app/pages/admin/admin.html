@@ -1,0 +1,51 @@
+<div class="container py-5 animate__animated animate__fadeIn">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="fw-bold mb-0">Panel de Administrador</h2>
+      <p class="text-muted mb-0">Usuarios registrados en la app</p>
+    </div>
+    <button class="btn btn-outline-danger fw-semibold" (click)="cerrarSesion()">
+      Cerrar sesión
+    </button>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+
+      <table class="table table-striped table-hover mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Rol</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (usuarios.length === 0) {
+            <tr>
+              <td colspan="3" class="text-center text-muted py-4">
+                No hay usuarios registrados todavía
+              </td>
+            </tr>
+          }
+          @for (usuario of usuarios; track usuario.username; let i = $index) {
+            <tr>
+              <td>{{ i + 1 }}</td>
+              <td>{{ usuario.username }}</td>
+              <td>
+                <span class="badge"
+                  [class.bg-primary]="usuario.rol === 'usuario'"
+                  [class.bg-danger]="usuario.rol === 'admin'">
+                  {{ usuario.rol }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+</div>
