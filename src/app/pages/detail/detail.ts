@@ -13,4 +13,9 @@ export class DetailComponent {
 
   constructor(private pokemonService: PokemonService) {}
 
+  async ngOnInit() {
+
+    await this.pokemonService.loadPokemon('pikachu');
+
+  }
 }

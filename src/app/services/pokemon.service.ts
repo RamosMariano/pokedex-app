@@ -5,7 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class PokemonService {
 
-  private allPokemon: any[] = [];
+
+  allPokemon: any[] = [];
+  currentPokemonData: any = null;
+  currentPokemonSpeciesData: any = null;
 
   async listaPokemon() {
     try {
@@ -24,6 +27,38 @@ export class PokemonService {
       return [];
     }
   }
+
+  async loadPokemon(pokemonName: string) {
+
+  try {
+
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+    );
+
+    this.currentPokemonData = await response.json();
+
+    const response2 = await fetch(
+      `https://pokeapi.co/api/v2/pokemon-species/${pokemonName}`
+    );
+
+    this.currentPokemonSpeciesData = await response2.json();
+
+    return {
+      pokemon: this.currentPokemonData,
+      species: this.currentPokemonSpeciesData
+    };
+
+  } catch (error) {
+
+    console.error('Error cargando Pokémon:', error);
+
+    this.currentPokemonData = null;
+    this.currentPokemonSpeciesData = null;
+
+    return null;
+  }
+}
 
   showSprites(currentPokemonData: any, generation: string, version: string) {
     return currentPokemonData?.sprites?.versions?.[generation]?.[version];
