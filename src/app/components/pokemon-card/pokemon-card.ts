@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,4 +8,15 @@ import { CommonModule } from '@angular/common';
   templateUrl: './pokemon-card.html',
   styleUrl: './pokemon-card.scss'
 })
-export class PokemonCardComponent {}
+export class PokemonCardComponent {
+  // Placeholder prueba de datos
+  @Input() pokemon: any = {
+  name: 'Pikachu',
+  image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
+  types: ['Electric']
+};
+  agregarFavorito() {
+    console.log('Favorito agregado');
+  }
+
+}
