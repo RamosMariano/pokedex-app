@@ -18,5 +18,13 @@ export class DetailComponent {
 
     await this.pokemonService.loadPokemon('pikachu');
 
+    const tipos = this.pokemonService.getTipos();
+    const habilidades = this.pokemonService.listAbilities();
+    const cadena = this.pokemonService.getCadenaEvo('pikachu');
+
+    console.log(tipos);
+    console.log(habilidades);
+    console.log(cadena);
+
   }
 }

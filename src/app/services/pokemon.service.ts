@@ -64,24 +64,24 @@ export class PokemonService {
     return currentPokemonData?.sprites?.versions?.[generation]?.[version];
   }
 
-  listAbilities(currentPokemonData: any) {
-    return currentPokemonData?.abilities || [];
+  listAbilities() {
+    return this.currentPokemonData?.abilities || [];
   }
 
-  listMoves(currentPokemonData: any) {
-    return currentPokemonData?.moves || [];
+  listMoves() {
+    return this.currentPokemonData?.moves || [];
   }
 
-  getTipos(currentPokemonData: any) {
+  getTipos() {
 
     if (
-      !currentPokemonData?.types ||
-      !Array.isArray(currentPokemonData.types)
+      !this.currentPokemonData?.types ||
+      !Array.isArray(this.currentPokemonData.types)
     ) {
       return [];
     }
 
-    return currentPokemonData.types.map((typeSlot: any) => ({
+    return this.currentPokemonData.types.map((typeSlot: any) => ({
       name: typeSlot.type.name,
       slot: typeSlot.slot,
       formattedName: typeSlot.type.name.replace(/-/g, ' ').toUpperCase()
