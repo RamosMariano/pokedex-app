@@ -1,8 +1,16 @@
-<div *ngIf="loading" class="spinner-container">
+<div class="spinner-container" *ngIf="loading">
   <app-spinner></app-spinner>
 </div>
 
-<div *ngIf="!loading" class="pokemon-grid">
-  <app-pokemon-card *ngFor="let pokemon of pokemons" [pokemon]="pokemon"></app-pokemon-card>
+<div class="pokemon-grid" *ngIf="!loading && pokemons.length > 0">
+  <app-pokemon-card
+    *ngFor="let pokemon of pokemons"
+    [pokemon]="pokemon">
+  </app-pokemon-card>
 </div>
 
+<div class="pagination" *ngIf="!loading && total > 1">
+  <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+  <span>Pagina {{ currentPage }} de {{ total }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === total">Siguiente</button>
+</div>

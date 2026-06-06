@@ -2,9 +2,13 @@
 
   <h3>{{ pokemon.name }}</h3>
 
-  <p>{{ pokemon.url }}</p>
+  <img [src]="pokemon.image" alt="{{ pokemon.name }}" />
 
-  
+  <div>
+    <span *ngFor="let type of pokemon.types">
+      {{ type }}
+    </span>
+  </div>
 
   <button class="btn btn-primary" (click)="agregarFavorito()">
     Agregar a Favoritos

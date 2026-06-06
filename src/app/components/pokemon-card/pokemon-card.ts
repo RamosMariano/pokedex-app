@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 export class PokemonCardComponent {
   
   @Input() pokemon: any;
-
+  
   agregarFavorito() {
     console.log('Favorito agregado');
   }
