@@ -9,12 +9,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './pokemon-card.scss'
 })
 export class PokemonCardComponent {
-  // Placeholder prueba de datos
-  @Input() pokemon: any = {
-  name: 'Pikachu',
-  image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
-  types: ['Electric']
-};
+  
+  @Input() pokemon: any;
+
   agregarFavorito() {
     console.log('Favorito agregado');
   }

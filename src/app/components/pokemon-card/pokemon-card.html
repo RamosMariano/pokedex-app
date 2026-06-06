@@ -1,15 +1,13 @@
 <div class="card">
-  <img [src]="pokemon.image" [alt]="pokemon.name">
 
   <h3>{{ pokemon.name }}</h3>
 
-  <div class="types">
-    <span *ngFor="let type of pokemon.types">
-      {{ type }}
-    </span>
-  </div>
+  <p>{{ pokemon.url }}</p>
+
+  
 
   <button class="btn btn-primary" (click)="agregarFavorito()">
     Agregar a Favoritos
   </button>
+
 </div>

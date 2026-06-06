@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PokemonService } from '../../services/pokemon.service';
 import { PokemonCardComponent } from '../../components/pokemon-card/pokemon-card';
 import {SpinnerComponent} from "../../components/spinner/spinner";
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -13,13 +14,20 @@ import {SpinnerComponent} from "../../components/spinner/spinner";
 export class HomeComponent {
 
   loading = true;
-  pokemons = [];
+  pokemons: any[] = [];
 
-  constructor(private pokemonService: PokemonService) {}
+  constructor(private pokemonService: PokemonService, private cdr: ChangeDetectorRef) {}
 
-  ngOnInit() {
-    this.pokemonService.getPokemons().subscribe((data) => {
-      this.pokemons = data.results;
-      this.loading = false;
-    });
+   async ngOnInit() {
+  this.loading = true;
+
+  try {
+    this.pokemons = await this.pokemonService.listaPokemon();
+  } catch (e) {
+    console.error(e);
+  } finally {
+    this.loading = false;
+    this.cdr.detectChanges();
+  }
+}
 }

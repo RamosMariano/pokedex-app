@@ -1,13 +1,8 @@
-<app-spinner></app-spinner>
-
-<div class="pokemon-grid">
-
-
-    <!-- esto es un placeholder nomas.-->
-    <app-pokemon-card></app-pokemon-card> 
-
-    <app-pokemon-card></app-pokemon-card>
-
-    <app-pokemon-card></app-pokemon-card>
-
+<div *ngIf="loading" class="spinner-container">
+  <app-spinner></app-spinner>
 </div>
+
+<div *ngIf="!loading" class="pokemon-grid">
+  <app-pokemon-card *ngFor="let pokemon of pokemons" [pokemon]="pokemon"></app-pokemon-card>
+</div>
+
