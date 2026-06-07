@@ -1,1 +1,73 @@
-<p>detail works!</p>
+<!-- Spinner -->
+<div class="spinner-container" *ngIf="loading">
+  <app-spinner></app-spinner>
+</div>
+
+<!-- Contenido -->
+<div class="detail-container animate__animated animate__fadeIn" *ngIf="!loading && pokemon">
+
+  <!-- Botón volver -->
+  <button class="btn btn-outline-secondary mb-3" (click)="volver()">
+    ← Volver
+  </button>
+
+  <div class="detail-card">
+
+    <!-- Cabecera -->
+    <div class="detail-header text-center">
+      <h1 class="pokemon-name">{{ pokemon.name }}</h1>
+      <span class="pokemon-id">#{{ pokemon.id }}</span>
+      <img [src]="pokemon.sprites.front_default"[alt]="pokemon.name"class="pokemon-img"/>
+      <!-- Badges de tipo -->
+      <div class="d-flex justify-content-center gap-2 mt-2">
+        <span *ngFor="let tipo of tipos" class="type-badge {{ tipo.name }}">
+          {{ tipo.name }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Info básica -->
+    <div class="detail-info d-flex justify-content-center gap-4 mt-3">
+      <div class="info-item text-center">
+        <span class="info-label">Altura</span>
+        <span class="info-value">{{ pokemon.height / 10 }} m</span>
+      </div>
+      <div class="info-item text-center">
+        <span class="info-label">Peso</span>
+        <span class="info-value">{{ pokemon.weight / 10 }} kg</span>
+      </div>
+      <div class="info-item text-center">
+        <span class="info-label">Experiencia base</span>
+        <span class="info-value">{{ pokemon.base_experience }}</span>
+      </div>
+    </div>
+
+    <!-- Habilidades -->
+    <div class="detail-section mt-4">
+      <h4>Habilidades</h4>
+      <div class="d-flex flex-wrap gap-2">
+        <span
+          *ngFor="let habilidad of habilidades"
+          class="badge bg-secondary text-capitalize">
+          {{ habilidad.ability.name }}
+          <span *ngIf="habilidad.is_hidden" class="ms-1 fst-italic">(oculta)</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="detail-section mt-4">
+      <h4>Estadísticas base</h4>
+      <div *ngFor="let stat of stats" class="mb-2">
+        <div class="d-flex justify-content-between">
+          <span class="stat-name text-capitalize">{{ stat.name }}</span>
+          <span class="stat-value">{{ stat.value }}</span>
+        </div>
+        <div class="stat-bar">
+          <div class="stat-fill" [style.width.%]="stat.percentage"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
