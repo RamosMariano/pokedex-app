@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import Swal from 'sweetalert2';
@@ -7,34 +7,44 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
 export class LoginComponent {
 
-  username: string = '';
-  password: string = '';
-  submitted: boolean = false;
-
   userService = inject(UserService);
   router = inject(Router);
+  fb = inject(FormBuilder);
+
+  formulario = this.fb.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required]
+  });
+
+  get username() { return this.formulario.get('username'); }
+  get password() { return this.formulario.get('password'); }
 
   iniciarSesion() {
-    this.submitted = true;
+    this.formulario.markAllAsTouched();
+    if (this.formulario.invalid) return;
 
-    if (!this.username || !this.password) {
-      return;
-    }
-
-    const ok = this.userService.login(this.username, this.password);
+    const ok = this.userService.login(
+      this.username!.value!,
+      this.password!.value!
+    );
 
     if (ok) {
-      if (this.userService.esAdmin()) {
-        this.router.navigate(['/admin']);
-      } else {
-        this.router.navigate(['/home']);
-      }
-}
+      this.userService.esAdmin()
+        ? this.router.navigate(['/admin'])
+        : this.router.navigate(['/home']);
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al iniciar sesión',
+        text: 'Usuario o contraseña incorrectos',
+        confirmButtonColor: '#e63946'
+      });
+    }
   }
 }
