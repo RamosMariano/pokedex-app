@@ -3,51 +3,66 @@
        style="width: 100%; max-width: 400px;">
 
     <div class="text-center mb-3 animate__animated animate__bounceIn">
-      <img
-        src="/logoPokemon.png"
-        alt="Pokemon Logo"
-        style="width: 200px; object-fit: contain;"
-      />
+      <img src="/logoPokemon.png" alt="Pokemon Logo" style="width: 200px; object-fit: contain;" />
     </div>
 
     <h2 class="text-center fw-bold mb-1">Registrarse</h2>
     <p class="text-center text-muted mb-4">Creá tu cuenta para empezar</p>
 
-    <div class="mb-3">
-      <label class="form-label fw-semibold">Usuario</label>
-      <input
-        type="text"
-        class="form-control"
-        [class.is-invalid]="submitted && !username"
-        [(ngModel)]="username"
-        placeholder="Elegí un nombre de usuario"
-      />
-      <div class="invalid-feedback">El usuario es obligatorio</div>
-    </div>
+    <form [formGroup]="formulario">
 
-    <div class="mb-3">
-      <label class="form-label fw-semibold">Contraseña</label>
-      <input
-        type="password"
-        class="form-control"
-        [class.is-invalid]="submitted && !password"
-        [(ngModel)]="password"
-        placeholder="Elegí una contraseña"
-      />
-      <div class="invalid-feedback">La contraseña es obligatoria</div>
-    </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Usuario</label>
+        <input
+          type="text"
+          class="form-control"
+          [class.is-invalid]="username?.invalid && username?.touched"
+          [class.is-valid]="username?.valid && username?.touched"
+          formControlName="username"
+          placeholder="Elegí un nombre de usuario"
+        />
+        @if (username?.touched && username?.errors?.['required']) {
+          <div class="invalid-feedback d-block">El usuario es obligatorio</div>
+        }
+        @if (username?.touched && username?.errors?.['minlength']) {
+          <div class="invalid-feedback d-block">Mínimo 3 caracteres</div>
+        }
+      </div>
 
-    <div class="mb-4">
-      <label class="form-label fw-semibold">Confirmar contraseña</label>
-      <input
-        type="password"
-        class="form-control"
-        [class.is-invalid]="submitted && !confirmar"
-        [(ngModel)]="confirmar"
-        placeholder="Repetí la contraseña"
-      />
-      <div class="invalid-feedback">Confirmá tu contraseña</div>
-    </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Contraseña</label>
+        <input
+          type="password"
+          class="form-control"
+          [class.is-invalid]="password?.invalid && password?.touched"
+          [class.is-valid]="password?.valid && password?.touched"
+          formControlName="password"
+          placeholder="Elegí una contraseña"
+        />
+        @if (password?.touched && password?.errors?.['required']) {
+          <div class="invalid-feedback d-block">La contraseña es obligatoria</div>
+        }
+        @if (password?.touched && password?.errors?.['minlength']) {
+          <div class="invalid-feedback d-block">Mínimo 4 caracteres</div>
+        }
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label fw-semibold">Confirmar contraseña</label>
+        <input
+          type="password"
+          class="form-control"
+          [class.is-invalid]="confirmar?.invalid && confirmar?.touched"
+          [class.is-valid]="confirmar?.valid && confirmar?.touched"
+          formControlName="confirmar"
+          placeholder="Repetí la contraseña"
+        />
+        @if (confirmar?.touched && confirmar?.errors?.['required']) {
+          <div class="invalid-feedback d-block">Confirmá tu contraseña</div>
+        }
+      </div>
+
+    </form>
 
     <button
       class="btn btn-primary w-100 mb-3 fw-bold"

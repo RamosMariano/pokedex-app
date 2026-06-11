@@ -3,22 +3,33 @@ import { CommonModule } from '@angular/common';
 import { PokemonService } from '../../services/pokemon.service';
 import { PokemonCardComponent } from '../../components/pokemon-card/pokemon-card';
 import { SpinnerComponent } from '../../components/spinner/spinner';
+import { FormsModule } from '@angular/forms';
+
+const POKEMON_TYPES = [
+  'fire','water','grass','electric','ice','fighting','poison','ground',
+  'flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy','normal'
+];
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, PokemonCardComponent, SpinnerComponent],
+  imports: [CommonModule, PokemonCardComponent, SpinnerComponent, FormsModule],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
 export class HomeComponent {
   loading = false;
   allPokemons: any[] = [];
+  filteredPokemons: any[] = [];
   pokemons: any[] = [];
 
   currentPage = 1;
   pageSize = 50;
   totalCount = 0;
+
+  searchQuery = '';
+  selectedType = '';
+  pokemonTypes = POKEMON_TYPES;
 
   constructor(
     private pokemonService: PokemonService,
@@ -26,7 +37,7 @@ export class HomeComponent {
   ) {}
 
   get total() {
-    return Math.ceil(this.totalCount / this.pageSize);
+    return Math.ceil(this.filteredPokemons.length / this.pageSize);
   }
 
   async ngOnInit() {
@@ -34,6 +45,7 @@ export class HomeComponent {
       this.allPokemons = Array.from({ length: 1025 }, (_, i) => ({
         name: `${i + 1}`
       }));
+      this.filteredPokemons = [...this.allPokemons];
       this.totalCount = this.allPokemons.length;
       await this.loadPage(1);
     } catch (e) {
@@ -47,7 +59,7 @@ export class HomeComponent {
     this.cdr.detectChanges();
 
     const start = (page - 1) * this.pageSize;
-    const slice = this.allPokemons.slice(start, start + this.pageSize);
+    const slice = this.filteredPokemons.slice(start, start + this.pageSize);
 
     try {
       for (const p of slice) {
@@ -66,6 +78,46 @@ export class HomeComponent {
       this.loading = false;
       this.cdr.detectChanges();
     }
+  }
+
+  async applyFilters() {
+    const query = this.searchQuery.trim().toLowerCase();
+
+    if (this.selectedType) {
+      const byType = await this.pokemonService.getPokemonByType(this.selectedType);
+      this.filteredPokemons = byType.filter(p => {
+        if (!query) return true;
+        const isNumber = !isNaN(Number(query));
+        if (isNumber) return false;
+        return p.name.toLowerCase().includes(query);
+      });
+    } else if (query && !isNaN(Number(query))) {
+      this.filteredPokemons = this.allPokemons.filter(p => p.name === query);
+    } else if (query) {
+      this.filteredPokemons = [...this.allPokemons];
+    } else {
+      this.filteredPokemons = [...this.allPokemons];
+    }
+
+    this.currentPage = 1;
+    await this.loadPage(1);
+
+    if (query && !this.selectedType && isNaN(Number(query))) {
+      this.pokemons = this.pokemons.filter(p =>
+        p.name.toLowerCase().includes(query)
+      );
+    }
+
+    this.cdr.detectChanges();
+  }
+
+  selectType(type: string) {
+    this.selectedType = this.selectedType === type ? '' : type;
+    this.applyFilters();
+  }
+
+  async onSearch() {
+    await this.applyFilters();
   }
 
   async nextPage() {

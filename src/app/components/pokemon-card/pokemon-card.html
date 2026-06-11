@@ -1,17 +1,16 @@
-<div class="card">
-
-  <h3 class="pokemon-name">
-    {{ pokemon.name }}
-  </h3>
-
-  <img [src]="pokemon.image" [alt]="pokemon.name" />
-
-  <div class="types">
-    <span *ngFor="let type of pokemon.types">
-      {{ type }}
-    </span>
+<div class="card pokemon-card" (click)="verDetalle()">
+  <img [src]="pokemon.image" alt="{{ pokemon.name }}" />
+  <div class="card-body text-center">
+    <h5 class="card-title">{{ pokemon.name }}</h5>
+    <div class="d-flex justify-content-center gap-1 flex-wrap mb-2">
+      <span
+        *ngFor="let type of pokemon.types"
+        class="type-badge {{ type }}">
+        {{ type }}
+      </span>
+    </div>
+    @if(logueado()){
+        <button class="btn-favorite" (click)="$event.stopPropagation(); agregarFavorito()">🤍</button>
+        }
   </div>
-
-  <button class="btn btn-primary" (click)="agregarFavorito()"> Agregar a Favoritos </button>
-
 </div>
