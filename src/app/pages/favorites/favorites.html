@@ -1,22 +1,25 @@
-<main class="page">
-    <!-- obtener favs de ls y obtener cantidad para este if pendiente -->
-    @if (true) 
+<div class="page">
+    
+    @if(pokeFavs.lenght === 0) 
     {
         <div class="empty-state">
             <div class="pokeQue">
                <img src="assets/img/pokeQue.png" alt="?!">
             </div>
 
-            <h2>Aun no has agregado tus favoritos!</h2>
+            <h2 class="title">Aun no has agregado tus favoritos!</h2>
 
             <p>Agrega tus pokemon preferidos dandole clic al corazon en la pokedex.</p>
         </div>
     }
     @else
     {
-        <div>
-            <!-- listado de favs pendiente -->
+        <div class="pokemon-grid">
+            @for(pokemon of pokeFavs; track pokemon.name)
+            {
+                <app-pokemon-card [pokemon]="pokemon" class="animate__animated animate__fadeIn"> </app-pokemon-card>
+            }
         </div>
     }
-
-</main>
+    
+</div>
