@@ -1,6 +1,6 @@
 <div class="page">
-    
-    @if(pokeFavs.lenght === 0) 
+
+    @if(pokeFavs.length === 0) 
     {
         <div class="empty-state">
             <div class="pokeQue">
@@ -17,7 +17,7 @@
         <div class="pokemon-grid">
             @for(pokemon of pokeFavs; track pokemon.name)
             {
-                <app-pokemon-card [pokemon]="pokemon" class="animate__animated animate__fadeIn"> </app-pokemon-card>
+                <app-pokemon-card [pokemon]="pokemon" (clicBtn)="refrescar()" class="animate__animated animate__fadeIn"> </app-pokemon-card>
             }
         </div>
     }
