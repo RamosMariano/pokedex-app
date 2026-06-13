@@ -21,4 +21,9 @@ export class FavoritesComponent
     this.pokeFavs = this.favouritesService.obtenerPokeFavoritos();
   }
 
+  refrescar() //esto es para que los que va eliminando user no aparezcan
+  {
+    this.pokeFavs = this.favouritesService.obtenerPokeFavoritos();
+  }
+
 }
