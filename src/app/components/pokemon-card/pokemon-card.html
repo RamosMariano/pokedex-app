@@ -13,21 +13,11 @@
       
       @if(esFavoritoSN())
       {
-          <button
-              class="btn-favorite favorito"
-              (click)="$event.stopPropagation(); eliminarDeFavoritos()"
-          >
-              ❤️
-          </button>
+        <button class="btn-favorite favorito" (click)="$event.stopPropagation(); eliminarDeFavoritos()">❤️</button>
       }
       @else
       {
-          <button
-              class="btn-favorite"
-              (click)="$event.stopPropagation(); agregarFavorito()"
-          >
-              🤍
-          </button>
+        <button class="btn-favorite" (click)="$event.stopPropagation(); agregarFavorito()" >🤍</button>
       }        
     }
   </div>
