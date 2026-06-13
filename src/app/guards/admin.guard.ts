@@ -1,7 +1,15 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 export const adminGuard: CanActivateFn = () => {
-  // TODO: implementar lógica de rol admin
-  return true;
+  const userService = inject(UserService);
+  const router = inject(Router);
+
+  if (userService.esAdmin()) {
+    return true;
+  }
+
+  router.navigate(['/home']);
+  return false;
 };
