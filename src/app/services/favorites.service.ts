@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -7,10 +8,16 @@ import { Injectable } from '@angular/core';
 export class FavoritesService 
 {
 
+  constructor(private userService:UserService){}
 
   obtenerPokeFavoritos() 
   {
-    let listaFavoritos = localStorage.getItem('pokemonFavoritos');
+
+    let userActual: any = this.userService.getUsuarioActual();
+    let userKey = `pokemonFavoritos_${userActual.username}`;
+    
+    let listaFavoritos = localStorage.getItem(userKey);
+
 
     if(listaFavoritos === null) 
     {
@@ -24,13 +31,16 @@ export class FavoritesService
   agregarPoke(pokemon: any) 
   {
 
+    let userActual: any = this.userService.getUsuarioActual();
+    let userKey = `pokemonFavoritos_${userActual.username}`;
+
     let listaFavoritos = this.obtenerPokeFavoritos();
     let yaEsFavorito = this.esFavoritoSN(pokemon.name);
 
     if(yaEsFavorito === false)
     {
       listaFavoritos.push(pokemon);
-      localStorage.setItem('pokemonFavoritos',JSON.stringify(listaFavoritos));
+      localStorage.setItem(userKey,JSON.stringify(listaFavoritos));
     }
 
   }
@@ -53,6 +63,11 @@ export class FavoritesService
 
   eliminarFavorito(nombre: string) 
   {
+
+    let userActual: any = this.userService.getUsuarioActual();
+    let userKey = `pokemonFavoritos_${userActual.username}`;
+
+
     let listaFavoritos = this.obtenerPokeFavoritos();
 
     let temp = [];
@@ -65,14 +80,19 @@ export class FavoritesService
       }
     }
 
-    localStorage.setItem('pokemonFavoritos',JSON.stringify(temp));
+    localStorage.setItem(userKey,JSON.stringify(temp));
     
   }
 
   resetearTodo() 
   {
-    localStorage.removeItem('pokemonFavoritos');
+    let userActual: any = this.userService.getUsuarioActual();
+    let userKey = `pokemonFavoritos_${userActual.username}`;
+
+    localStorage.removeItem(userKey);
   }
+
+
 }
 
  
