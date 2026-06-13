@@ -25,6 +25,16 @@ export class PokemonCardComponent {
     this.favouritesService.agregarPoke(this.pokemon);
   }
 
+  eliminarDeFavoritos()
+  {//lo dejo por aca por si es necesario
+    this.favouritesService.eliminarFavorito(this.pokemon.name);
+  }
+
+  esFavoritoSN()
+  {//por si llega a ser necesario para el icono del cora
+    this.favouritesService.esFavoritoSN(this.pokemon.name);
+  }
+
   logueado(): boolean {
     return this.userService.estaLogueado();
   }
