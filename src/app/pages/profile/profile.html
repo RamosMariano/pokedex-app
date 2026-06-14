@@ -1,1 +1,19 @@
-<p>profile works!</p>
+<img src="assets/img/usrProfile.jpeg" alt="FotoPerfil">
+
+<h2>{{ usuario.username }}</h2>
+
+<label>Nombre visible:</label>
+<input
+  type="text"
+  [(ngModel)]="nombreVisible">
+
+<label>Ciudad:</label>
+<input
+  type="text"
+  [(ngModel)]="ciudad">
+
+<button (click)="guardarPerfil()">
+  Guardar cambios
+</button>
+
+

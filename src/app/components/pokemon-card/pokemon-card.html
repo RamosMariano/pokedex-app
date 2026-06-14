@@ -1,1 +1,16 @@
-<p>pokemon-card works!</p>
+<div class="card pokemon-card" (click)="verDetalle()">
+  <img [src]="pokemon.image" alt="{{ pokemon.name }}" />
+  <div class="card-body text-center">
+    <h5 class="card-title">{{ pokemon.name }}</h5>
+    <div class="d-flex justify-content-center gap-1 flex-wrap mb-2">
+      <span
+        *ngFor="let type of pokemon.types"
+        class="type-badge {{ type }}">
+        {{ type }}
+      </span>
+    </div>
+    @if(logueado()){
+        <button class="btn-favorite" (click)="$event.stopPropagation(); agregarFavorito()">🤍</button>
+        }
+  </div>
+</div>

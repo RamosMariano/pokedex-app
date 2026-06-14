@@ -151,4 +151,19 @@ export class PokemonService {
       return null;
     }
   }
+  //lo agregue para el filtro por tipo
+  async getPokemonByType(type: string): Promise<any[]> {
+    try {
+      const response = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
+      const data = await response.json();
+      return data.pokemon.map((entry: any) => ({
+        name: entry.pokemon.name
+      }));
+    } catch (error) {
+      console.error('Error cargando Pokémon por tipo:', error);
+      return [];
+    }
+  }
+
+  
 }

@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'main';
+  src: url('/assets/fonts/PokemonSolid.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'links';
+  src: url('/assets/fonts/Nunito.ttf') format('truetype');
+}
+
+
+.navbar-brand {
+  font-family: 'main', sans-serif;
+  color: #fcfcfc !important;
+  margin-right: 70px;
+  margin-left: 50px;
+}
+
+.nav-link {
+  font-family: 'links', sans-serif;
+  margin-right: 20px;
+}

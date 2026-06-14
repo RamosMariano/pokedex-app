@@ -1,15 +1,27 @@
 import { Routes } from '@angular/router';
+import { LoginComponent } from './pages/login/login';
+import { RegisterComponent } from './pages/register/register';
+import { HomeComponent } from './pages/home/home';
+import { DetailComponent } from './pages/detail/detail';
+import { FavoritesComponent } from './pages/favorites/favorites';
+import { MyteamComponent } from './pages/myteam/myteam';
+import { ProfileComponent } from './pages/profile/profile';
+import { ResourcesComponent } from './pages/resources/resources';
+import { AdminComponent } from './pages/admin/admin';
+import { NotFoundComponent } from './pages/not-found/not-found';
+import { authGuard } from './guards/auth.guard';
+import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
-  { path: '',           redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login',      loadComponent: () => import('./pages/login/login').then(c => c.LoginComponent) },
-  { path: 'register',   loadComponent: () => import('./pages/register/register').then(c => c.RegisterComponent) },
-  { path: 'home',       loadComponent: () => import('./pages/home/home').then(c => c.HomeComponent) },
-  { path: 'detail/:id', loadComponent: () => import('./pages/detail/detail').then(c => c.DetailComponent) },
-  { path: 'favorites',  loadComponent: () => import('./pages/favorites/favorites').then(c => c.FavoritesComponent) },
-  { path: 'myteam',     loadComponent: () => import('./pages/myteam/myteam').then(c => c.MyteamComponent) },
-  { path: 'profile',    loadComponent: () => import('./pages/profile/profile').then(c => c.ProfileComponent) },
-  { path: 'resources',  loadComponent: () => import('./pages/resources/resources').then(c => c.ResourcesComponent) },
-  { path: 'admin',      loadComponent: () => import('./pages/admin/admin').then(c => c.AdminComponent) },
-  { path: '**',         loadComponent: () => import('./pages/not-found/not-found').then(c => c.NotFoundComponent) }
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'login',      component: LoginComponent },
+  { path: 'register',   component: RegisterComponent },
+  { path: 'home',       component: HomeComponent },
+  { path: 'detail/:id', component: DetailComponent},
+  { path: 'favorites',  component: FavoritesComponent, canActivate: [authGuard] },
+  { path: 'myteam',     component: MyteamComponent,    canActivate: [authGuard] },
+  { path: 'profile',    component: ProfileComponent,   canActivate: [authGuard] },
+  { path: 'resources',  component: ResourcesComponent, canActivate: [authGuard] },
+  { path: 'admin',      component: AdminComponent,     canActivate: [adminGuard] },
+  { path: '**',         component: NotFoundComponent }
 ];
