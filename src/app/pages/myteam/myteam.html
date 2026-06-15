@@ -12,14 +12,25 @@
 
   @if (equipo.length === 0) {
     <div class="text-center py-5 animate__animated animate__fadeIn">
-      <p class="fs-1 mb-2">⚔️</p>
-      <h4 class="fw-bold mb-2">Tu equipo está vacío</h4>
-      <p class="text-muted mb-4">
-        Explorá la Pokédex y agregá hasta 6 Pokémon a tu equipo
-      </p>
-      <a routerLink="/home" class="btn btn-primary fw-semibold">
-        Ir a la Pokédex
-      </a>
+
+      
+      <div class="empty-state">
+        <div class="pokeQue">
+          <img src="assets/img/pokeQue.png" alt="?!">
+        </div>
+        
+        
+        <h4 class="title">Tu equipo está vacío</h4>
+
+        
+        <p class="text-muted mb-4">
+          Explorá la Pokédex y agregá hasta 6 Pokémon a tu equipo
+        </p>
+        <a routerLink="/home" class="btn btn-primary fw-semibold">
+          Ir a la Pokédex
+        </a>
+      </div>
+
     </div>
   }
 

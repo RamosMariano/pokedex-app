@@ -19,7 +19,54 @@
   min-height: calc(100vh - 95px);
 }
 
-.pokemon-grid {
+.page
+{
+    min-height: 84.5vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.empty-state
+{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;  
+}
+
+.pokeQue
+{
+    font-size: 5rem;
+    animation: float 2s ease-in-out infinite;
+}
+
+.title
+{
+    color: #444;
+}
+
+@keyframes float
+{
+    0%
+    {
+        transform: translateY(0);
+    }
+
+    50%
+    {
+        transform: translateY(-12px);
+    }
+
+    100%
+    {
+        transform: translateY(0);
+    }
+}
+
+.pokemon-grid 
+{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1rem;

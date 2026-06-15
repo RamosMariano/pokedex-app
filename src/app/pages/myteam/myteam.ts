@@ -5,6 +5,7 @@ import { TeamService } from '../../services/team.service';
 import { TeamPokemon } from '../../interfaces/team.interface';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-myteam',
   standalone: true,
