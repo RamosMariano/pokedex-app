@@ -23,7 +23,6 @@ export class DetailComponent {
 
 
   estaEnEquipo=false;
-
   teamService = inject(TeamService);
 
   constructor(
