@@ -69,5 +69,15 @@
       </div>
     </div>
 
+    <!-- Botones -->
+    <div class="d-flex gap-2 mt-4">
+      <button class="btn w-100 fw-semibold"
+        [class.btn-success]="!estaEnEquipo"
+        [class.btn-danger]="estaEnEquipo"
+        (click)="toggleEquipo()">
+        {{ estaEnEquipo ? '✖ Quitar del equipo' : '+ Mi Equipo' }}
+      </button>
+    </div>
+
   </div>
 </div>
