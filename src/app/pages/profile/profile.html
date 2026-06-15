@@ -1,1 +1,156 @@
-<p>profile works!</p>
+<div class="container py-4 animate__animated animate__fadeIn">
+
+  <!-- VISTA DE PERFIL -->
+  @if (!editando) {
+    <div class="row">
+
+      <!-- Columna izquierda — datos del usuario -->
+      <div class="col-md-3 text-center mb-4">
+        <img
+          src="assets/img/usrProfile.jpeg"
+          alt="Foto de perfil"
+          class="rounded-circle mb-3"
+          style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #e63946;"
+        />
+        <h4 class="fw-bold mb-0">{{ usuario.nombreVisible || usuario.username }}</h4>
+        <p class="text-muted mb-1">@{{ usuario.username }}</p>
+        @if (usuario.ciudad) {
+          <p class="text-muted mb-3">📍 {{ usuario.ciudad }}</p>
+        }
+        <div class="d-flex justify-content-center gap-4 mb-4">
+          <div class="text-center">
+            <span class="fw-bold fs-5">{{ favoritos.length }}</span>
+            <p class="text-muted mb-0" style="font-size: 0.8rem;">Favoritos</p>
+          </div>
+          <div class="text-center">
+            <span class="fw-bold fs-5">{{ equipo.length }}</span>
+            <p class="text-muted mb-0" style="font-size: 0.8rem;">Equipo</p>
+          </div>
+        </div>
+        <button class="btn btn-outline-primary w-100 mb-2 fw-semibold"
+          (click)="editando = true">
+          Editar perfil
+        </button>
+        <button class="btn btn-outline-danger w-100 fw-semibold"
+          (click)="cerrarSesion()">
+          Cerrar sesión
+        </button>
+      </div>
+
+      <!-- Columna derecha — pestañas -->
+      <div class="col-md-9">
+        <ul class="nav nav-tabs mb-3">
+          <li class="nav-item">
+            <button class="nav-link"
+              [class.active]="pestanaActiva === 'favoritos'"
+              (click)="pestanaActiva = 'favoritos'">
+              Favoritos ({{ favoritos.length }})
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link"
+              [class.active]="pestanaActiva === 'equipo'"
+              (click)="pestanaActiva = 'equipo'">
+              Mi Equipo ({{ equipo.length }})
+            </button>
+          </li>
+        </ul>
+
+        <!-- Pestaña Favoritos -->
+        @if (pestanaActiva === 'favoritos') {
+          @if (favoritos.length === 0) {
+            <div class="text-center py-5 text-muted">
+              <p class="fs-1">💔</p>
+              <p>No tenés favoritos todavía</p>
+            </div>
+          } @else {
+            <div class="row g-3">
+              @for (pokemon of favoritos; track pokemon.name) {
+                <div class="col-6 col-sm-4 col-md-3">
+                  <div class="card pokemon-card text-center">
+                    <img [src]="pokemon.image" [alt]="pokemon.name" />
+                    <div class="card-body p-2">
+                      <p class="fw-bold mb-0 text-capitalize" style="font-size: 0.85rem;">
+                        {{ pokemon.name }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        }
+
+        <!-- Pestaña Mi Equipo -->
+        @if (pestanaActiva === 'equipo') {
+          @if (equipo.length === 0) {
+            <div class="text-center py-5 text-muted">
+              <p class="fs-1">⚔️</p>
+              <p>No tenés Pokémon en tu equipo todavía</p>
+            </div>
+          } @else {
+            <div class="row g-3">
+              @for (pokemon of equipo; track pokemon.id) {
+                <div class="col-6 col-sm-4 col-md-3">
+                  <div class="card pokemon-card text-center">
+                    <img [src]="pokemon.image" [alt]="pokemon.name" />
+                    <div class="card-body p-2">
+                      <p class="fw-bold mb-0 text-capitalize" style="font-size: 0.85rem;">
+                        {{ pokemon.name }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        }
+
+      </div>
+    </div>
+  }
+
+  <!-- FORMULARIO DE EDICIÓN -->
+  @if (editando) {
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card shadow-sm p-4 animate__animated animate__fadeIn">
+          <h4 class="fw-bold mb-4">Editar perfil</h4>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Nombre visible</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="nombreVisible"
+              placeholder="¿Cómo querés que te vean?"
+            />
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label fw-semibold">Ciudad</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="ciudad"
+              placeholder="¿De dónde sos?"
+            />
+          </div>
+
+          <div class="d-flex gap-2">
+            <button class="btn btn-primary w-100 fw-semibold"
+              (click)="guardarPerfil()">
+              Guardar cambios
+            </button>
+            <button class="btn btn-outline-secondary w-100 fw-semibold"
+              (click)="editando = false">
+              Cancelar
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  }
+
+</div>

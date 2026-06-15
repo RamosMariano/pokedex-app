@@ -1,3 +1,30 @@
+.card {
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.pokemon-name {
+  text-transform: capitalize;
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.types {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+
+.types span {
+  text-transform: capitalize;
+  background: #eeeeee;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
 .btn-favorite.favorito
 {
     color: red;
