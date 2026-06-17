@@ -50,4 +50,10 @@ export class RegisterComponent {
       Swal.fire({ icon: 'error', title: 'Error', text: 'Ese nombre de usuario ya existe', confirmButtonColor: '#e63946' });
     }
   }
+
+  get passwordsDistintas()
+  {
+    return this.password?.value !== this.confirmar?.value;
+  }
+
 }
