@@ -35,6 +35,22 @@ export class PokemonCardComponent {
     this.clicBtn.emit();
   }
 
+  confirmarEliminarFavorito()
+  {
+    Swal.fire({ icon: 'warning', title: `¿Seguro que quieres eliminar a ${this.pokemon.name}?`, text: 'Este Pokémon será eliminado de tus favoritos',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#e63946'
+    }).then((result) =>
+    {
+      if (result.isConfirmed)
+      {
+        this.eliminarDeFavoritos();
+      }
+    });
+  }
+
   esFavoritoSN()
   {
     return this.favouritesService.esFavoritoSN(this.pokemon.name);
