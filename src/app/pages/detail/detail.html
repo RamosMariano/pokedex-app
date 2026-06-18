@@ -1,32 +1,25 @@
-<!-- Spinner -->
 <div class="spinner-container" *ngIf="loading">
   <app-spinner></app-spinner>
 </div>
 
-<!-- Contenido -->
 <div class="detail-container animate__animated animate__fadeIn" *ngIf="!loading && pokemon">
 
-  <!-- Botón volver -->
   <button class="btn btn-outline-secondary mb-3" (click)="volver()">
     ← Volver
   </button>
 
   <div class="detail-card">
 
-    <!-- Cabecera -->
     <div class="detail-header text-center">
       <h1 class="pokemon-name">{{ pokemon.name }}</h1>
       <span class="pokemon-id">#{{ pokemon.id }}</span>
       <img [src]="pokemon.sprites.front_default"[alt]="pokemon.name"class="pokemon-img"/>
-      <!-- Badges de tipo -->
       <div class="d-flex justify-content-center gap-2 mt-2">
         <span *ngFor="let tipo of tipos" class="type-badge {{ tipo.name }}">
           {{ tipo.name }}
         </span>
       </div>
     </div>
-
-    <!-- Info básica -->
     <div class="detail-info d-flex justify-content-center gap-4 mt-3">
       <div class="info-item text-center">
         <span class="info-label">Altura</span>
@@ -42,7 +35,7 @@
       </div>
     </div>
 
-    <!-- Habilidades -->
+
     <div class="detail-section mt-4">
       <h4>Habilidades</h4>
       <div class="d-flex flex-wrap gap-2">
@@ -55,9 +48,8 @@
       </div>
     </div>
 
-    <!-- Estadísticas -->
     <div class="detail-section mt-4">
-      <h4>Estadísticas base</h4>
+      <h4>Estadisticas</h4>
       <div *ngFor="let stat of stats" class="mb-2">
         <div class="d-flex justify-content-between">
           <span class="stat-name text-capitalize">{{ stat.name }}</span>
@@ -67,16 +59,6 @@
           <div class="stat-fill" [style.width.%]="stat.percentage"></div>
         </div>
       </div>
-    </div>
-
-    <!-- Botones -->
-    <div class="d-flex gap-2 mt-4">
-      <button class="btn w-100 fw-semibold"
-        [class.btn-success]="!estaEnEquipo"
-        [class.btn-danger]="estaEnEquipo"
-        (click)="toggleEquipo()">
-        {{ estaEnEquipo ? '✖ Quitar del equipo' : '+ Mi Equipo' }}
-      </button>
     </div>
 
   </div>
