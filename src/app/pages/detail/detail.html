@@ -15,7 +15,12 @@
 
     <!-- Cabecera -->
     <div class="detail-header text-center">
-      <h1 class="pokemon-name">{{ pokemon.name }}</h1>
+      <h1 class="pokemon-name">
+        {{ pokemon.name }}
+        <button class="btn btn-sm btn-outline-secondary ms-2" (click)="reproducirSonido()">
+          🔊 <!-- extra: boton para reproducir sonido de pokemon al lado del nombre -->
+        </button>
+      </h1>
       <span class="pokemon-id">#{{ pokemon.id }}</span>
       <img [src]="pokemon.sprites.front_default"[alt]="pokemon.name"class="pokemon-img"/>
       <!-- Badges de tipo -->

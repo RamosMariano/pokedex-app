@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +17,7 @@ export class NavbarComponent
 
   userService = inject(UserService);
   router = inject(Router);
+  themeService = inject(ThemeService);
   profileImg = this.asignarImagenLocalStorage();
 
   selectorRuta() //te manda al login si no estas logueado.
@@ -50,6 +52,15 @@ export class NavbarComponent
   cerrarSesion(): void {
     this.userService.logout();
     this.router.navigate(['/login']);
+  }
+
+  //para prender/apagar el modo oscuro
+  toggleTema(): void {
+    this.themeService.toggleModoOscuro();
+  }
+
+  esModoOscuro(): boolean {
+    return this.themeService.esModoOscuro();
   }
 
 }

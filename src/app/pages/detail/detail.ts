@@ -74,12 +74,13 @@ export class DetailComponent {
     this.router.navigate(['/home']);
   }
 
+   //reproducir el sonido del pokemon
+  reproducirSonido() {
+    const sonido = new Audio(this.pokemon.cries.latest);
+    sonido.play();
+  }
 
   //logica para el boton de agregar al equipo 
-  
-
-  
-
   
   enEquipo(): boolean {
     return this.pokemon ? this.teamService.estaEnEquipo(this.pokemon.id) : false;
