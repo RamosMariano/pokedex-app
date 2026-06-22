@@ -2,42 +2,41 @@
   <div class="card shadow-lg p-4 animate__animated animate__fadeInUp"
        style="width: 100%; max-width: 400px;">
 
+    <!-- BLOQUE LOGO con animacion -->
     <div class="text-center mb-3 animate__animated animate__bounceIn">
-      <img src="/logoPokemon.png" alt="Pokemon Logo" style="width: 200px; object-fit: contain;" />
+      <img
+        src="logoPokemon.png"
+        alt="Pokemon Logo"
+        style="width: 200px; object-fit: contain;"
+      />
     </div>
 
     <h2 class="text-center fw-bold mb-1">POKE APP</h2>
     <p class="text-center text-muted mb-4">Tu pokédex personalizada</p>
 
-    <form [formGroup]="formulario">
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Usuario</label>
+      <input
+        type="text"
+        class="form-control"
+        [class.is-invalid]="submitted && !username"
+        [(ngModel)]="username"
+        placeholder="Ingresá tu usuario"
+      />
+      <div class="invalid-feedback">El usuario es obligatorio</div>
+    </div>
 
-      <div class="mb-3">
-        <label class="form-label fw-semibold">Usuario</label>
-        <input
-          type="text"
-          class="form-control"
-          [class.is-invalid]="username?.invalid && username?.touched"
-          [class.is-valid]="username?.valid && username?.touched"
-          formControlName="username"
-          placeholder="Ingresá tu usuario"
-        />
-        <div class="invalid-feedback">El usuario es obligatorio</div>
-      </div>
-
-      <div class="mb-4">
-        <label class="form-label fw-semibold">Contraseña</label>
-        <input
-          type="password"
-          class="form-control"
-          [class.is-invalid]="password?.invalid && password?.touched"
-          [class.is-valid]="password?.valid && password?.touched"
-          formControlName="password"
-          placeholder="Ingresá tu contraseña"
-        />
-        <div class="invalid-feedback">La contraseña es obligatoria</div>
-      </div>
-
-    </form>
+    <div class="mb-4">
+      <label class="form-label fw-semibold">Contraseña</label>
+      <input
+        type="password"
+        class="form-control"
+        [class.is-invalid]="submitted && !password"
+        [(ngModel)]="password"
+        placeholder="Ingresá tu contraseña"
+      />
+      <div class="invalid-feedback">La contraseña es obligatoria</div>
+    </div>
 
     <button
       class="btn btn-primary w-100 mb-3 fw-bold"

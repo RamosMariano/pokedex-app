@@ -13,11 +13,11 @@ import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login',      component: LoginComponent },
   { path: 'register',   component: RegisterComponent },
-  { path: 'home',       component: HomeComponent },
-  { path: 'detail/:id', component: DetailComponent},
+  { path: 'home',       component: HomeComponent,      canActivate: [authGuard] },
+  { path: 'detail/:id', component: DetailComponent,    canActivate: [authGuard] },
   { path: 'favorites',  component: FavoritesComponent, canActivate: [authGuard] },
   { path: 'myteam',     component: MyteamComponent,    canActivate: [authGuard] },
   { path: 'profile',    component: ProfileComponent,   canActivate: [authGuard] },
