@@ -9,7 +9,7 @@
     <h2 class="text-center fw-bold mb-1">Registrarse</h2>
     <p class="text-center text-muted mb-4">Creá tu cuenta para empezar</p>
 
-    <form [formGroup]="formulario">
+    <form [formGroup]="formulario"> 
 
       <div class="mb-3">
         <label class="form-label fw-semibold">Usuario</label>
@@ -50,16 +50,23 @@
       <div class="mb-4">
         <label class="form-label fw-semibold">Confirmar contraseña</label>
         <input
-          type="password"
-          class="form-control"
-          [class.is-invalid]="confirmar?.invalid && confirmar?.touched"
-          [class.is-valid]="confirmar?.valid && confirmar?.touched"
+          type="password" class="form-control" 
+          [class.is-invalid]=" confirmar?.touched && (confirmar?.invalid || passwordsDistintas)"
+          [class.is-valid]=" confirmar?.touched && confirmar?.valid && !passwordsDistintas"
           formControlName="confirmar"
-          placeholder="Repetí la contraseña"
+          placeholder="Confirmar la contraseña"
         />
         @if (confirmar?.touched && confirmar?.errors?.['required']) {
           <div class="invalid-feedback d-block">Confirmá tu contraseña</div>
         }
+
+        @if(confirmar?.touched && !confirmar?.errors?.['required'] && passwordsDistintas ) 
+        {
+          <div class="invalid-feedback d-block">
+            Las contraseñas no coinciden
+          </div>
+        }
+
       </div>
 
     </form>

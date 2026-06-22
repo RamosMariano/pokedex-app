@@ -5,6 +5,7 @@ import { PokemonService } from '../../services/pokemon.service';
 import { SpinnerComponent } from '../../components/spinner/spinner';
 import Swal from 'sweetalert2';
 import { TeamService } from '../../services/team.service';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-detail',
@@ -67,6 +68,26 @@ export class DetailComponent {
   } finally {
     this.loading = false;
     this.cdr.detectChanges();
+
+    const radarData = this.pokemon.stats.map((s: any) => s.base_stat);
+
+    new Chart(
+      document.getElementById('radarChart') as HTMLCanvasElement,
+      {
+        type: 'radar',
+        data: {
+          labels: ['HP', 'ATK', 'DEF', 'SP.ATK', 'SP.DEF', 'SPEED'],
+          datasets: [{
+            label: this.pokemon.name,
+            data: radarData,
+            fill: true
+          }]
+        },
+        options: {
+          scales: { r: { min: 0, max: 255 } }
+        }
+      }
+    );
   }
 }
 
