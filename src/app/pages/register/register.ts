@@ -47,10 +47,4 @@ export class RegisterComponent {
 
     window.location.href = registerUrl;
   }
-
-  get passwordsDistintas()
-  {
-    return this.password?.value !== this.confirmar?.value;
-  }
-
 }
