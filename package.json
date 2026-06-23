@@ -20,6 +20,8 @@
     "@popperjs/core": "^2.11.8",
     "animate.css": "^4.1.1",
     "bootstrap": "^5.3.8",
+    "chart.js": "^4.5.1",
+    "keycloak-js": "^26.2.4",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.26.25",
     "tslib": "^2.3.0"
