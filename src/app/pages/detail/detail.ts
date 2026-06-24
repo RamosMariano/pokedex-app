@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 import { TeamService } from '../../services/team.service';
 import Chart from 'chart.js/auto';
 
-
 @Component({
   selector: 'app-detail',
   standalone: true,
@@ -70,11 +69,7 @@ export class DetailComponent {
     this.loading = false;
     this.cdr.detectChanges();
 
-    //Hexagono
-    console.log(this.pokemon.stats);
-    const radarData = this.pokemon.stats.map(
-      (s: any) => s.base_stat
-    );
+    const radarData = this.pokemon.stats.map((s: any) => s.base_stat);
 
     new Chart(
       document.getElementById('radarChart') as HTMLCanvasElement,
@@ -89,12 +84,7 @@ export class DetailComponent {
           }]
         },
         options: {
-          scales: {
-            r: {
-              min: 0,
-              max: 255
-            }
-          }
+          scales: { r: { min: 0, max: 255 } }
         }
       }
     );
@@ -105,12 +95,13 @@ export class DetailComponent {
     this.router.navigate(['/home']);
   }
 
+   //reproducir el sonido del pokemon
+  reproducirSonido() {
+    const sonido = new Audio(this.pokemon.cries.latest);
+    sonido.play();
+  }
 
   //logica para el boton de agregar al equipo 
-  
-
-  
-
   
   enEquipo(): boolean {
     return this.pokemon ? this.teamService.estaEnEquipo(this.pokemon.id) : false;
