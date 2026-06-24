@@ -1,1 +1,31 @@
-<p>favorites works!</p>
+<div class="page container py-4 animate__animated animate__fadeInLeft">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+        <h2 class="fw-bold mb-0">Mis Favoritos</h2>  
+        </div>
+    </div>
+
+    @if(pokeFavs.length === 0) 
+    {
+        <div class="empty-state">
+            <div class="pokeQue">
+               <img src="assets/img/pokeQue.png" alt="?!">
+            </div>
+
+            <h2 class="title">Aun no has agregado tus favoritos!</h2>
+
+            <p>Agrega tus pokemon preferidos dandole clic al corazon en la pokedex.</p>
+        </div>
+    }
+    @else
+    {
+        <div class="pokemon-grid">
+            @for(pokemon of pokeFavs; track pokemon.name)
+            {
+                <app-pokemon-card [pokemon]="pokemon" (clicBtn)="refrescar()" class="animate__animated animate__fadeIn"> </app-pokemon-card>
+            }
+        </div>
+    }
+    
+</div>

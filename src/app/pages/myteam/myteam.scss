@@ -1,0 +1,78 @@
+.border-dashed {
+  border: 2px dashed #dee2e6 !important;
+  border-radius: 0.5rem;
+}
+
+.pokemon-team-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 0.5rem;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 95px);
+}
+
+.page
+{
+    min-height: 84.5vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.empty-state
+{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;  
+}
+
+.pokeQue
+{
+    font-size: 5rem;
+    animation: float 2s ease-in-out infinite;
+}
+
+.title
+{
+    color: #444;
+}
+
+@keyframes float
+{
+    0%
+    {
+        transform: translateY(0);
+    }
+
+    50%
+    {
+        transform: translateY(-12px);
+    }
+
+    100%
+    {
+        transform: translateY(0);
+    }
+}
+
+.pokemon-grid 
+{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+#grafico-container,
+#radarChart {
+  max-height: 500px;
+}
