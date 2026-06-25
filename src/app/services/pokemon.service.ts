@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class PokemonService {
 
     } catch (error) {
       console.error('Error cargando lista de Pokémon:', error);
+      Swal.fire({ icon: 'error', title: 'Error de conexión', text: 'No se pudo cargar la lista de Pokémon', confirmButtonColor: '#e63946' });
       return [];
     }
   }
@@ -52,8 +54,7 @@ export class PokemonService {
   } catch (error) {
 
     console.error('Error cargando Pokémon:', error);
-
-    this.currentPokemonData = null;
+    Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo cargar la información del Pokémon', confirmButtonColor: '#e63946' });    this.currentPokemonData = null;
     this.currentPokemonSpeciesData = null;
 
     return null;
@@ -128,6 +129,8 @@ export class PokemonService {
         error
       );
 
+      Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo obtener la cadena evolutiva', confirmButtonColor: '#e63946' });
+
       return [{ name: speciesData.name, isCurrent: true }];
     }
   }
@@ -147,6 +150,7 @@ export class PokemonService {
     } catch (error) {
 
       console.error(error);
+      Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo cargar la evolución del Pokémon', confirmButtonColor: '#e63946' });
 
       return null;
     }
@@ -161,6 +165,7 @@ export class PokemonService {
       }));
     } catch (error) {
       console.error('Error cargando Pokémon por tipo:', error);
+      Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo cargar el filtro por tipo', confirmButtonColor: '#e63946' });
       return [];
     }
   }

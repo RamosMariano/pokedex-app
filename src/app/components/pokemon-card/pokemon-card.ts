@@ -35,6 +35,22 @@ export class PokemonCardComponent {
     this.clicBtn.emit();
   }
 
+  confirmarEliminarFavorito()
+  {
+    Swal.fire({ icon: 'warning', title: `¿Seguro que quieres eliminar a ${this.pokemon.name.charAt(0).toUpperCase() + this.pokemon.name.slice(1)}?`, text: 'Este Pokémon será eliminado de tus favoritos',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#e63946'
+    }).then((result) =>
+    {
+      if (result.isConfirmed)
+      {
+        this.eliminarDeFavoritos();
+      }
+    });
+  }
+
   esFavoritoSN()
   {
     return this.favouritesService.esFavoritoSN(this.pokemon.name);
@@ -48,12 +64,12 @@ export class PokemonCardComponent {
   {
     if(opcion === 's')
     {
-      Swal.fire( `${this.pokemon.name} ahora es uno de tus favoritos!` ,'','success');
+      Swal.fire( `${this.pokemon.name.charAt(0).toUpperCase() + this.pokemon.name.slice(1)} ahora es uno de tus favoritos!` ,'','success');
     }
     
     if(opcion === 'e')
     {
-      Swal.fire( `${this.pokemon.name} fue removido de favoritos` ,'','success');
+      Swal.fire( `${this.pokemon.name.charAt(0).toUpperCase() + this.pokemon.name.slice(1)} fue removido de favoritos` ,'','success');
     }
 
   }
