@@ -42,6 +42,7 @@ export class HomeComponent {
 
   async ngOnInit() {
     try {
+      //carga los id como los nombres, hay que cambiar para que tenga los nombres de verdad
       this.allPokemons = Array.from({ length: 1025 }, (_, i) => ({
         name: `${i + 1}`
       }));
