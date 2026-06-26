@@ -1,46 +1,47 @@
-<div class="filters-container mb-4">
+<div class="animate__animated animate__fadeIn">
+  <div class="filters-container mb-4">
 
-  <div class="search-box mb-3">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Buscar por nombre o número..."
-      [(ngModel)]="searchQuery"
-      (input)="onSearch()"
-    />
+    <div class="search-box mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Buscar por nombre o número..."
+        [(ngModel)]="searchQuery"
+        (input)="onSearch()"
+      />
+    </div>
+
+    <div class="type-filters d-flex flex-wrap gap-2">
+      <button
+        *ngFor="let type of pokemonTypes"
+        class="btn btn-sm type-btn"
+        [class.active]="selectedType === type"
+        (click)="selectType(type)"
+      >
+        {{ type }}
+      </button>
+    </div>
+
   </div>
 
-  <div class="type-filters d-flex flex-wrap gap-2">
-    <button
-      *ngFor="let type of pokemonTypes"
-      class="btn btn-sm type-btn"
-      [class.active]="selectedType === type"
-      (click)="selectType(type)"
-    >
-      {{ type }}
-    </button>
+  <div class="spinner-container" *ngIf="loading">
+    <app-spinner></app-spinner>
   </div>
 
-</div>
+  <div class="pokemon-grid" *ngIf="!loading && pokemons.length > 0">
+    <app-pokemon-card
+      *ngFor="let pokemon of pokemons"
+      [pokemon]="pokemon">
+    </app-pokemon-card>
+  </div>
 
-<div class="spinner-container" *ngIf="loading">
-  <app-spinner></app-spinner>
-</div>
+  <div class="no-results text-center mt-4" *ngIf="!loading && pokemons.length === 0">
+    <p>No se encontraron Pokémon.</p>
+  </div>
 
-<div class="pokemon-grid" *ngIf="!loading && pokemons.length > 0">
-  <app-pokemon-card
-    *ngFor="let pokemon of pokemons"
-    [pokemon]="pokemon"
-    class="animate__animated animate__fadeIn">
-  </app-pokemon-card>
-</div>
-
-<div class="no-results text-center mt-4" *ngIf="!loading && pokemons.length === 0">
-  <p>No se encontraron Pokémon.</p>
-</div>
-
-<div class="pagination" *ngIf="!loading && total > 1">
-  <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
-  <span>Pagina {{ currentPage }} de {{ total }}</span>
-  <button (click)="nextPage()" [disabled]="currentPage === total">Siguiente</button>
+  <div class="pagination" *ngIf="!loading && total > 1">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+    <span>Pagina {{ currentPage }} de {{ total }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === total">Siguiente</button>
+  </div>
 </div>

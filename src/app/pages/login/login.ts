@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { KeycloakService } from '../../services/keycloak.service';
 import Swal from 'sweetalert2';
@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
@@ -26,6 +26,14 @@ export class LoginComponent {
 
   get username() { return this.formulario.get('username'); }
   get password() { return this.formulario.get('password'); }
+
+  irARegistro() {
+    const url = 'https://auth.fabriq.uy/realms/pokedex/protocol/openid-connect/registrations'
+      + '?client_id=pokedex-app'
+      + '&response_type=code'
+      + '&redirect_uri=' + encodeURIComponent('http://localhost:4200/login');
+    window.location.href = url;
+  }
 
   iniciarSesion() {
     this.formulario.markAllAsTouched();

@@ -1,15 +1,14 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { UserService } from '../services/user.service';
 
 export const adminGuard: CanActivateFn = () => {
-  const userService = inject(UserService);
+  const token = localStorage.getItem('kc_token');
   const router = inject(Router);
 
-  if (userService.esAdmin()) {
-    return true;
+  if (!token) {
+    router.navigate(['/login']);
+    return false;
   }
 
-  router.navigate(['/home']);
-  return false;
+  return true;
 };

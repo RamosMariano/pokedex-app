@@ -45,7 +45,7 @@ body {
   cursor: pointer;
 
   &:hover {
-    transform: translateY(-6px);
+    transform: translateY(-6px) scale(1.05);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   }
 
@@ -182,4 +182,11 @@ body.modo-oscuro .empty-state {
 body.modo-oscuro .card {
   background-color: #1e1e1e;
   color: #f1faee;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate__animated {
+    animation-duration: 1s !important;
+    animation-delay: 0s !important;
+  }
 }
