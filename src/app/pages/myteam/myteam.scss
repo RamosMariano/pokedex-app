@@ -13,6 +13,11 @@
   }
 }
 
+//para centrar los pokemon
+.pokemon-card img {
+  align-self: center;
+}
+
 :host {
   display: flex;
   flex-direction: column;

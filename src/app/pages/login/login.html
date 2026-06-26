@@ -2,8 +2,8 @@
   <div class="card shadow-lg p-4 animate__animated animate__fadeInUp"
        style="width: 100%; max-width: 400px;">
 
-    <div class="text-center mb-3 animate__animated animate__bounceIn">
-      <img src="/logoPokemon.png" alt="Pokemon Logo" style="width: 200px; object-fit: contain;" />
+    <div class="text-center mb-3 ">
+      <img src="/logoPokemon.png" alt="Pokemon Logo" class="animate__animated animate__zoomIn animate__delay-1s" style="width: 200px; object-fit: contain;" />
     </div>
 
     <h2 class="text-center fw-bold mb-1">POKE APP</h2>
@@ -47,7 +47,7 @@
 
     <p class="text-center mb-0">
       ¿No tienes una cuenta?
-      <a routerLink="/register" class="text-primary fw-semibold">Registrate</a>
+      <a (click)="irARegistro()" class="text-primary fw-semibold" style="cursor:pointer">Registrate</a>
     </p>
 
   </div>

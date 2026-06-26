@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectorRef  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -16,7 +16,7 @@ export class PokemonCardComponent {
   @Output() clicBtn = new EventEmitter<void>();
   @Input() pokemon: any;
 
-  constructor(private router: Router, private userService:UserService, private favouritesService:FavoritesService) {}
+  constructor(private router: Router, private userService:UserService, private favouritesService:FavoritesService, private cdr: ChangeDetectorRef) {}
   
   verDetalle() {
     this.router.navigate(['/detail', this.pokemon.name]);
@@ -33,6 +33,23 @@ export class PokemonCardComponent {
     this.favouritesService.eliminarFavorito(this.pokemon.name);
     this.swANotificacion('e');
     this.clicBtn.emit();
+    this.cdr.detectChanges();
+  }
+
+  confirmarEliminarFavorito()
+  {
+    Swal.fire({ icon: 'warning', title: `¿Seguro que quieres eliminar a ${this.pokemon.name.charAt(0).toUpperCase() + this.pokemon.name.slice(1)}?`, text: 'Este Pokémon será eliminado de tus favoritos',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#e63946'
+    }).then((result) =>
+    {
+      if (result.isConfirmed)
+      {
+        this.eliminarDeFavoritos();
+      }
+    });
   }
 
   esFavoritoSN()
@@ -48,12 +65,12 @@ export class PokemonCardComponent {
   {
     if(opcion === 's')
     {
-      Swal.fire( `${this.pokemon.name} ahora es uno de tus favoritos!` ,'','success');
+      Swal.fire( `${this.pokemon.name.charAt(0).toUpperCase() + this.pokemon.name.slice(1)} ahora es uno de tus favoritos!` ,'','success');
     }
     
     if(opcion === 'e')
     {
-      Swal.fire( `${this.pokemon.name} fue removido de favoritos` ,'','success');
+      Swal.fire( `${this.pokemon.name.charAt(0).toUpperCase() + this.pokemon.name.slice(1)} fue removido de favoritos` ,'','success');
     }
 
   }

@@ -31,8 +31,7 @@
   <div class="pokemon-grid" *ngIf="!loading && pokemons.length > 0">
     <app-pokemon-card
       *ngFor="let pokemon of pokemons"
-      [pokemon]="pokemon"
-      class="animate__animated animate__fadeIn">
+      [pokemon]="pokemon">
     </app-pokemon-card>
   </div>
 

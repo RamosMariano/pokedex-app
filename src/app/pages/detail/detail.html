@@ -19,9 +19,15 @@
         </button>
       </h1>
       <span class="pokemon-id">#{{ pokemon.id }}</span>
-      <img [src]="pokemon.sprites.front_default"[alt]="pokemon.name"class="pokemon-img"/>
+      <img [src]="imagenActual" [alt]="pokemon.name" class="pokemon-img animate__animated animate__swing animate__infinite"/>
+      <div class="mt-2">
+        <button class="btn btn-sm btn-outline-secondary" (click)="toggleShiny()">
+          {{ mostrandoShiny ? '◀ Ver versión Normal' : 'Ver versión Shiny ✨' }}
+        </button>
+      </div>
+      <!-- Badges de tipo -->
       <div class="d-flex justify-content-center gap-2 mt-2">
-        <span *ngFor="let tipo of tipos" class="type-badge {{ tipo.name }}">
+        <span *ngFor="let tipo of tipos" class="type-badge {{ tipo.name }} animate__animated animate__fadeInLeft">
           {{ tipo.name }}
         </span>
       </div>
@@ -71,10 +77,18 @@
     <!-- Botones -->
     <div class="d-flex gap-2 mt-4">
       <button class="btn w-100 fw-semibold"
+        *ngIf="userService.estaLogueado()"
         [class.btn-success]="!estaEnEquipo"
         [class.btn-danger]="estaEnEquipo"
         (click)="toggleEquipo()">
         {{ estaEnEquipo ? '✖ Quitar del equipo' : '+ Mi Equipo' }}
+      </button>
+      <button class="btn w-100 fw-semibold"
+        *ngIf="userService.estaLogueado()"
+        [class.btn-outline-danger]="!esFavorito"
+        [class.btn-danger]="esFavorito"
+        (click)="toggleFavorito()">
+        {{ esFavorito ? '❤️ Quitar de favoritos' : '🤍 Agregar a favoritos' }}
       </button>
     </div>
 
