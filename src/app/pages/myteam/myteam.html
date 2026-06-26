@@ -5,9 +5,7 @@
       <h2 class="fw-bold mb-0">Mi Equipo</h2>
       <p class="text-muted mb-0">{{ equipo.length }} / 6 Pokémon</p>
     </div>
-    <a routerLink="/home" class="btn btn-outline-secondary btn-sm">
-      ← Volver a la Pokédex
-    </a>
+    
   </div>
 
   @if (equipo.length === 0) {
@@ -20,15 +18,13 @@
         </div>
         
         
-        <h4 class="title">Tu equipo está vacío</h4>
+        <h2 class="title">Tu equipo está vacío</h2>
 
         
-        <p class="text-muted mb-4">
+        <p>
           Explorá la Pokédex y agregá hasta 6 Pokémon a tu equipo
         </p>
-        <a routerLink="/home" class="btn btn-primary fw-semibold">
-          Ir a la Pokédex
-        </a>
+        
       </div>
 
     </div>
@@ -66,6 +62,11 @@
       }
 
     </div>
+    <!--hexagono-->
+    <div class="grafico-container mt-4">
+      <canvas id="radarChart"></canvas>
+    </div>
+    
   }
 
 </div>

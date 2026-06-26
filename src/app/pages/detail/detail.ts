@@ -5,6 +5,9 @@ import { PokemonService } from '../../services/pokemon.service';
 import { SpinnerComponent } from '../../components/spinner/spinner';
 import Swal from 'sweetalert2';
 import { TeamService } from '../../services/team.service';
+import { FavoritesService } from '../../services/favorites.service';
+import { UserService } from '../../services/user.service';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-detail',
@@ -21,9 +24,13 @@ export class DetailComponent {
   stats: any[] = [];
   loading = true;
 
-
-  estaEnEquipo=false;
+  estaEnEquipo = false;
   teamService = inject(TeamService);
+  favoritesService = inject(FavoritesService);
+  userService = inject(UserService);
+
+  mostrandoShiny = false;
+  esFavorito = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,54 +40,130 @@ export class DetailComponent {
   ) {}
 
   async ngOnInit() {
-  const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
 
-  
-
-  if (!id) {
-    this.router.navigate(['/home']);
-    return;
-  }
-
-  try {
-    const result = await this.pokemonService.loadPokemon(id);
-    if (!result?.pokemon) {
+    if (!id) {
       this.router.navigate(['/home']);
       return;
     }
 
-    this.pokemon = result.pokemon;
-    this.species = result.species;
-    this.tipos = this.pokemonService.getTipos();
-    this.habilidades = this.pokemonService.listAbilities();
-    this.stats = this.pokemon.stats.map((s: any) => ({
-      name: s.stat.name,
-      value: s.base_stat,
-      percentage: Math.round((s.base_stat / 255) * 100)
-    }));
+    try {
+      const result = await this.pokemonService.loadPokemon(id);
+      if (!result?.pokemon) {
+        this.router.navigate(['/home']);
+        return;
+      }
 
-    this.estaEnEquipo = this.teamService.estaEnEquipo(this.pokemon.id);
+      this.pokemon = result.pokemon;
+      this.species = result.species;
+      this.tipos = this.pokemonService.getTipos();
+      this.habilidades = this.pokemonService.listAbilities();
+      this.stats = this.pokemon.stats.map((s: any) => ({
+        name: s.stat.name,
+        value: s.base_stat,
+        percentage: Math.round((s.base_stat / 255) * 100)
+      }));
 
-  } catch (e) {
-    console.error('error:', e);
-    this.router.navigate(['/home']);
-  } finally {
-    this.loading = false;
-    this.cdr.detectChanges();
+      this.estaEnEquipo = this.teamService.estaEnEquipo(this.pokemon.id);
+
+      if (this.userService.estaLogueado()) {
+        this.esFavorito = this.favoritesService.esFavoritoSN(this.pokemon.name);
+      }
+
+    } catch (e) {
+      console.error('error:', e);
+      this.router.navigate(['/home']);
+    } finally {
+      this.loading = false;
+      this.cdr.detectChanges();
+
+      const radarData = this.pokemon.stats.map((s: any) => s.base_stat);
+
+      new Chart(
+        document.getElementById('radarChart') as HTMLCanvasElement,
+        {
+          type: 'radar',
+          data: {
+            labels: ['HP', 'ATK', 'DEF', 'SP.ATK', 'SP.DEF', 'SPEED'],
+            datasets: [{
+              label: this.pokemon.name,
+              data: radarData,
+              fill: true
+            }]
+          },
+          options: {
+            scales: { r: { min: 0, max: 255 } }
+          }
+        }
+      );
+    }
   }
-}
 
   volver() {
     this.router.navigate(['/home']);
   }
 
+  //reproducir el sonido del pokemon
+  reproducirSonido() {
+    const sonido = new Audio(this.pokemon.cries.latest);
+    sonido.play();
+  }
 
-  //logica para el boton de agregar al equipo 
   
 
-  
+  toggleShiny() {
+    
+    this.mostrandoShiny = !this.mostrandoShiny;
+    
+  }
 
-  
+  get imagenActual(): string {
+    if (!this.pokemon) return '';
+    return this.mostrandoShiny
+      ? this.pokemon.sprites.front_shiny
+      : this.pokemon.sprites.front_default;
+  }
+
+  toggleFavorito() {
+    if (this.esFavorito) {
+      Swal.fire({
+        title: `¿Quitar a ${this.pokemon.name} de favoritos?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, quitar',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#e63946',
+        cancelButtonColor: '#6c757d'
+      }).then(result => {
+        if (result.isConfirmed) {
+          this.favoritesService.eliminarFavorito(this.pokemon.name);
+          this.esFavorito = false;
+          this.cdr.detectChanges();
+          Swal.fire({
+            icon: 'success',
+            title: `${this.pokemon.name} quitado de favoritos`,
+            timer: 1500,
+            showConfirmButton: false
+          });
+        }
+      });
+    } else {
+      this.favoritesService.agregarPoke({
+        name: this.pokemon.name,
+        image: this.pokemon.sprites.front_default,
+        types: this.pokemon.types.map((t: any) => t.type.name)
+      });
+      this.esFavorito = true;
+      Swal.fire({
+        icon: 'success',
+        title: `¡${this.pokemon.name} agregado a favoritos!`,
+        timer: 1500,
+        showConfirmButton: false
+      });
+    }
+  }
+
+  //logica para el boton de agregar al equipo
   enEquipo(): boolean {
     return this.pokemon ? this.teamService.estaEnEquipo(this.pokemon.id) : false;
   }
@@ -123,7 +206,7 @@ export class DetailComponent {
           confirmButtonColor: '#e63946'
         });
       } else {
-        this.estaEnEquipo = true; 
+        this.estaEnEquipo = true;
         Swal.fire({
           icon: 'success',
           title: `¡${this.pokemon.name} agregado al equipo!`,

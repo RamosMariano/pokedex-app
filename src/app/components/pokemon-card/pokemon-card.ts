@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectorRef  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -16,7 +16,7 @@ export class PokemonCardComponent {
   @Output() clicBtn = new EventEmitter<void>();
   @Input() pokemon: any;
 
-  constructor(private router: Router, private userService:UserService, private favouritesService:FavoritesService) {}
+  constructor(private router: Router, private userService:UserService, private favouritesService:FavoritesService, private cdr: ChangeDetectorRef) {}
   
   verDetalle() {
     this.router.navigate(['/detail', this.pokemon.name]);
@@ -33,6 +33,7 @@ export class PokemonCardComponent {
     this.favouritesService.eliminarFavorito(this.pokemon.name);
     this.swANotificacion('e');
     this.clicBtn.emit();
+    this.cdr.detectChanges();
   }
 
   confirmarEliminarFavorito()

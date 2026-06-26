@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const usuarioSesion = localStorage.getItem('pokeweb_sesion');
+    const usuarioSesion = localStorage.getItem('kc_user') || localStorage.getItem('pokeweb_sesion');
     if (usuarioSesion) {
       this.usuario = JSON.parse(usuarioSesion);
       this.nombreVisible = this.usuario.nombreVisible || '';
