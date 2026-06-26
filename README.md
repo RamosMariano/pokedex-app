@@ -94,7 +94,7 @@ En el archivo `angular.json` se tuvieron que subir un poco los l√≠mites de tama√
 
 Si al compilar aparecen warnings en amarillo no hay problema, no impiden que la app se pueda desplegar.
 
-### Despliegue
+### Despliegue en Servidor
 
 Para llenar
 
