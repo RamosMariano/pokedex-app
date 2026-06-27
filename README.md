@@ -96,13 +96,12 @@ Si al compilar aparecen warnings en amarillo no hay problema, no impiden que la 
 
 ### Despliegue en Servidor
 
-Para llenar
 
-**URL de la app:** Para llenar
+**URL de la app:** 
 
 **Pasos para volver a desplegar:**
 
-Para llenar
+
 
 ---
 
