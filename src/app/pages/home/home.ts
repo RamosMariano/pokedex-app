@@ -42,9 +42,13 @@ export class HomeComponent {
 
   async ngOnInit() {
     try {
-      this.allPokemons = Array.from({ length: 1025 }, (_, i) => ({
+      //para buscar por nombre
+      const response = await this.pokemonService.listaPokemon();
+      this.allPokemons = response;
+      //para buscar solo por numero
+      /*this.allPokemons = Array.from({ length: 1025 }, (_, i) => ({
         name: `${i + 1}`
-      }));
+      }));*/
       this.filteredPokemons = [...this.allPokemons];
       this.totalCount = this.allPokemons.length;
       await this.loadPage(1);
@@ -94,7 +98,9 @@ export class HomeComponent {
     } else if (query && !isNaN(Number(query))) {
       this.filteredPokemons = this.allPokemons.filter(p => p.name === query);
     } else if (query) {
-      this.filteredPokemons = [...this.allPokemons];
+      this.filteredPokemons = this.allPokemons.filter(p =>
+        p.name.toLowerCase().includes(query)
+      );
     } else {
       this.filteredPokemons = [...this.allPokemons];
     }
