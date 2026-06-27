@@ -94,14 +94,36 @@ En el archivo `angular.json` se tuvieron que subir un poco los límites de tama�
 
 Si al compilar aparecen warnings en amarillo no hay problema, no impiden que la app se pueda desplegar.
 
-### Despliegue en Servidor
+### Despliegue en servidor
 
+**URL de la app:** https://pokedex.fabriq.uy
 
-**URL de la app:** 
+#### Arquitectura de despliegue
 
-**Pasos para volver a desplegar:**
+La aplicación corre en un VPS de Oracle Cloud con IP pública `146.235.243.214`. Todo el tráfico entrante pasa por un contenedor `nginx-reverse-proxy` que escucha en los puertos 80 y 443, gestiona los certificados SSL con Let's Encrypt y enruta las peticiones internamente.
 
+Dentro de una red Docker llamada `app-frontend`, corre el contenedor `pokedex`, que sirve los archivos estáticos generados por Angular a través de Nginx alpine. El dominio `pokedex.fabriq.uy` apunta al VPS y el proxy redirige el tráfico hacia ese contenedor en el puerto 80 interno.
 
+La autenticación de usuarios está delegada a Keycloak, que corre en otro contenedor dentro de la misma red y es accesible en `auth.fabriq.uy`. Los datos de Pokémon se obtienen en tiempo de ejecución desde la API pública `pokeapi.co`, que es un servicio externo al VPS.
+
+#### Pasos para volver a desplegar
+
+Se actualiza fácilmente ejecutando el siguiente script dentro del VPS:
+
+```bash
+#!/bin/bash
+cd ~/pokedex
+git pull
+docker build -t pokedex:latest .
+docker stop pokedex && docker rm pokedex
+docker run -d \
+  --name pokedex \
+  --restart unless-stopped \
+  --network app-frontend \
+  -p 3002:80 \
+  pokedex:latest
+echo "Deploy completado!"
+```
 
 ---
 
