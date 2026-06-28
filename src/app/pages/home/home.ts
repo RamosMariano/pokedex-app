@@ -86,32 +86,54 @@ export class HomeComponent {
 
   async applyFilters() {
     const query = this.searchQuery.trim().toLowerCase();
+    const isNumber = query !== '' && !isNaN(Number(query));
 
     if (this.selectedType) {
       const byType = await this.pokemonService.getPokemonByType(this.selectedType);
       this.filteredPokemons = byType.filter(p => {
         if (!query) return true;
-        const isNumber = !isNaN(Number(query));
         if (isNumber) return false;
         return p.name.toLowerCase().includes(query);
       });
-    } else if (query && !isNaN(Number(query))) {
-      this.filteredPokemons = this.allPokemons.filter(p => p.name === query);
+      this.currentPage = 1;
+      await this.loadPage(1);
+
+    } else if (isNumber) {
+      this.loading = true;
+      this.pokemons = [];
+      this.cdr.detectChanges();
+      try {
+        const result = await this.pokemonService.loadPokemon(query);
+        if (result?.pokemon) {
+          this.pokemons = [{
+            name: result.pokemon.name,
+            image: result.pokemon.sprites.front_default,
+            types: result.pokemon.types.map((t: any) => t.type.name)
+          }];
+        }
+        this.filteredPokemons = this.pokemons.map(p => ({ name: p.name }));
+      } catch (e) {
+        this.pokemons = [];
+        this.filteredPokemons = [];
+      } finally {
+        this.loading = false;
+        this.cdr.detectChanges();
+      }
+
     } else if (query) {
       this.filteredPokemons = this.allPokemons.filter(p =>
         p.name.toLowerCase().includes(query)
       );
-    } else {
-      this.filteredPokemons = [...this.allPokemons];
-    }
-
-    this.currentPage = 1;
-    await this.loadPage(1);
-
-    if (query && !this.selectedType && isNaN(Number(query))) {
+      this.currentPage = 1;
+      await this.loadPage(1);
       this.pokemons = this.pokemons.filter(p =>
         p.name.toLowerCase().includes(query)
       );
+
+    } else {
+      this.filteredPokemons = [...this.allPokemons];
+      this.currentPage = 1;
+      await this.loadPage(1);
     }
 
     this.cdr.detectChanges();
