@@ -22,6 +22,7 @@ export class HomeComponent {
   allPokemons: any[] = [];
   filteredPokemons: any[] = [];
   pokemons: any[] = [];
+  private searchTimeout: any;
 
   currentPage = 1;
   pageSize = 50;
@@ -145,7 +146,9 @@ export class HomeComponent {
   }
 
   async onSearch() {
-    await this.applyFilters();
+    clearTimeout(this.searchTimeout);
+    this.searchTimeout = setTimeout(() =>{ this.applyFilters(); }, 300);
+    //await this.applyFilters();
   }
 
   async nextPage() {
